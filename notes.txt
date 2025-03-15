@@ -1,0 +1,3 @@
+ssh  -i ~/Downloads/social-security-claiming-simulator-2.pem ec2-user@ec2-107-22-68-205.compute-1.amazonaws.com
+
+https://ec2-107-22-68-205.compute-1.amazonaws.com:8080
