@@ -1,4 +1,4 @@
-Below is a sample `README.md` you could use or adapt for your repository. Feel free to modify any sections to match the exact structure, requirements, or conventions of your project.
+Below is an updated `README.md` template that includes instructions for running both the **Streamlit** and **FastAPI** apps. Adjust file names, paths, or commands if your project structure differs.
 
 ---
 
@@ -14,7 +14,8 @@ Below is a sample `README.md` you could use or adapt for your repository. Feel f
 3. [Getting Started](#getting-started)  
    - [Requirements](#requirements)  
    - [Installation](#installation)  
-   - [Running the Program](#running-the-program)  
+   - [Running the Streamlit App](#running-the-streamlit-app)  
+   - [Running the FastAPI App](#running-the-fastapi-app)  
 4. [Usage](#usage)  
 5. [Developer Instructions](#developer-instructions)  
    - [Cloning the Repository](#cloning-the-repository)  
@@ -25,67 +26,87 @@ Below is a sample `README.md` you could use or adapt for your repository. Feel f
 ---
 
 ## Overview
-The **Social Security Claiming Simulator** is a tool designed to help individuals explore how the age at which they claim Social Security retirement benefits might affect their monthly payments and overall lifetime benefits (given certain assumptions). By modeling various claim ages and comparing potential outcomes, users can gain insights into different strategies for optimizing retirement income.
+The **Social Security Claiming Simulator** is a tool that helps users explore how different claiming ages and other assumptions can impact retirement benefits. The project includes both a **Streamlit** interactive web application and a **FastAPI** server, offering flexibility in how you run and interact with the simulator.
 
-> **Note**: The results are based on user inputs, built-in assumptions, and simplifications. Real-world outcomes may differ due to inflation, legislative changes, and other factors not modeled here.
+> **Note**: The results are based on user inputs, built-in assumptions, and simplifications. Real-world outcomes may differ due to inflation, legislative changes, and other unmodeled variables.
 
 ---
 
 ## Features
-- **Multiple Claiming Age Comparisons**: Easily compare benefits if claimed at different ages (e.g., 62, full retirement age, 70).  
-- **Lifetime Projection**: Estimate how lifetime benefits may vary depending on claim age assumptions.  
-- **Parameter Adjustments**: Modify assumptions such as annual cost-of-living adjustments (COLA), discount rates, mortality assumptions, and more.  
-- **Interactive Analysis**: (If applicable) Some parts of the simulator may be interactive, allowing you to tweak inputs on the fly.
+- **Multiple Claiming Age Comparisons**: Compare Social Security benefits at various ages (e.g., early claiming vs. full retirement age vs. delayed claiming).  
+- **Lifetime Projection**: Estimate how total lifetime benefits might vary under different scenarios.  
+- **Parameter Adjustments**: Modify assumptions for cost-of-living adjustments (COLA), discount rates, mortality assumptions, etc.  
+- **Interactive Analysis**: The Streamlit app lets you tweak inputs on the fly, while the FastAPI server can be integrated with other tools or GUIs.
 
 ---
 
 ## Getting Started
 
 ### Requirements
-- Python 3.7+ (If this is a Python project)
-- A terminal or command prompt to run commands
-- (Optional) A virtual environment tool like `venv` or `conda` for Python dependency management
+- **Python 3.7+**  
+- (Recommended) A virtual environment tool like `venv` or `conda`  
+- **Streamlit** and **FastAPI** (both can be installed from `requirements.txt`)  
+- **Uvicorn** (to run the FastAPI app)
 
 ### Installation
-1. Clone or download the repository to your local machine:
+1. **Clone or download** the repository to your local machine:
    ```bash
    git clone https://github.com/jtayl222/social-security-claiming-simulator.git
    ```
-2. Navigate to the project directory:
+2. **Navigate** to the project directory:
    ```bash
    cd social-security-claiming-simulator
    ```
-3. (Optional) Create and activate a virtual environment:
+3. (Optional) Create and activate a **virtual environment**:
    ```bash
    python -m venv venv
-   source venv/bin/activate   # On macOS/Linux
+   source venv/bin/activate   # macOS/Linux
    # or
-   venv\Scripts\activate      # On Windows
+   venv\Scripts\activate      # Windows
    ```
-4. Install required dependencies (if a `requirements.txt` file is provided):
+4. **Install dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
 
-### Running the Program
-1. In the project directory, run the main Python script or the entry point of the simulator. (Example command below—adapt as necessary if your file structure is different):
+### Running the Streamlit App
+1. Ensure you are in the main project directory:
    ```bash
-   python main.py
+   cd social-security-claiming-simulator
    ```
-2. Follow the on-screen instructions to input the required parameters (e.g., current age, assumed retirement age, expected COLA, etc.).
+2. Run the Streamlit application:
+   ```bash
+   streamlit run src/streamlit_app.py
+   ```
+3. A local URL (typically `http://localhost:8501`) will appear in your terminal.  
+4. Open that URL in your web browser to interact with the Social Security Claiming Simulator interface.
+
+### Running the FastAPI App
+1. Ensure you are in the main project directory:
+   ```bash
+   cd social-security-claiming-simulator
+   ```
+2. Run the FastAPI app using **Uvicorn**:
+   ```bash
+   uvicorn src.fastapi_app:app --reload
+   ```
+   - The `--reload` flag automatically restarts the server when file changes are detected.
+3. Open the provided URL (typically `http://127.0.0.1:8000`) in your browser or use a REST client (e.g., Postman, cURL) to interact with the endpoints.
+4. Visit `http://127.0.0.1:8000/docs` (by default) for the auto-generated Swagger UI and see the available endpoints.
 
 ---
 
 ## Usage
-- After running the simulator, you may be prompted to enter personal assumptions such as:
-  - **Current Age**  
-  - **Desired Claiming Age**  
-  - **Expected Annual COLA**  
-  - **Life Expectancy**  
+- **Streamlit App**:  
+  1. Enter your details (current age, desired claiming age, projected COLA, etc.).  
+  2. The app will calculate and display comparisons across different claiming strategies.  
 
-- The program will then compute estimated monthly benefits and cumulative lifetime benefits based on these inputs, often presenting comparisons across multiple scenarios.
+- **FastAPI**:  
+  1. Use the provided endpoints to submit parameters (e.g., current age, claiming age).  
+  2. Receive JSON responses with computed benefit estimates and comparisons.  
+  3. Integrate with your own frontend or scripts as needed.
 
-- **Important**: The simulator is meant for exploration only. If any parameter or calculation is unclear, review the source code or consult with a professional.
+- **Important**: The simulator is intended for educational use. Always consult with a qualified professional before making decisions regarding Social Security benefits.
 
 ---
 
@@ -99,34 +120,38 @@ cd social-security-claiming-simulator
 ```
 
 ### Running Locally
-1. Set up a Python 3 environment (virtual environments are recommended).
-2. Install dependencies with:
+1. **Set up** a Python 3 environment (using `venv` or `conda` is recommended).
+2. **Install dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
-3. Run the main Python script:
-   ```bash
-   python main.py
-   ```
-4. Modify existing source files or create new modules to add features, fix bugs, or improve performance.
+3. **Run the desired application**:
+   - **Streamlit**:
+     ```bash
+     streamlit run src/streamlit_app.py
+     ```
+   - **FastAPI**:
+     ```bash
+     uvicorn src.fastapi_app:app --reload
+     ```
 
 ---
 
 ## Contributing
-1. **Fork** the repository.  
-2. Create a new branch for your feature or bug fix:
+1. **Fork** the repository on GitHub.  
+2. **Create** a new branch for your feature or bug fix:
    ```bash
    git checkout -b feature/my-new-feature
    ```
-3. Commit your changes:
+3. **Commit** your changes:
    ```bash
    git commit -am "Add new feature"
    ```
-4. Push to your branch:
+4. **Push** to your branch:
    ```bash
    git push origin feature/my-new-feature
    ```
-5. **Open a Pull Request** on GitHub. We appreciate all contributions, whether it’s improving documentation, fixing bugs, or adding new features.
+5. Open a **Pull Request** on GitHub. We appreciate all contributions, whether it’s documentation improvements, bug fixes, or new functionality.
 
 ---
 

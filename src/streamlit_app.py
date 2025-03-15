@@ -18,7 +18,7 @@ Enter that monthly amount below.
 # Basic inputs
 birthdate = st.text_input(
     "Enter your birthdate (YYYY-MM-DD):", 
-    "1960-01-01",
+    "1965-01-01",
     help="Enter your birthdate in the format YYYY-MM-DD. This is used to calculate your current age."
 )
 fra_benefit = st.number_input(
